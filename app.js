@@ -2,13 +2,16 @@
 
 // note: ES6 syntax, withou {} implicitly return
 
-
-var GroceryList = () => (
+// props would become a list of GroceryListItems
+var GroceryList = (props) => (
+  // props at [i] is a GroceryListItem, add to ul element
   <div>
     <ListTitle />
     <ul>
-      <Beer />
-      <Noodles />
+      {props.groceryItems[0]}
+      {props.groceryItems[1]}
+      {props.groceryItems[2]}
+      {props.groceryItems[3]}
     </ul>
   </div>
 );
@@ -17,14 +20,21 @@ var ListTitle = () => (
   <h2>Stuff to Buy</h2>
 );
 
-// make React components for items in GroceryList
-var Beer = () => (
-  <li>Beer, but now it's own React component</li>
+// make a reusable GroceryListItem component that dynamically renders given grocery item
+var GroceryListItem = (props) => (
+  // props needs to contain a dynamic 'name' to each GListItem
+  // could be props.name = 'name of item', still within a li element
+  <li>{props.name}</li>
 );
 
-var Noodles = () => (
-  <li>Noodles, but now it's own React component</li>
-);
+// make an array of GroceryListItems
+var groceryItems = [
+  // each GListItem is passed a prop with 'name'
+  <GroceryListItem name='Beer'/>,
+  <GroceryListItem name='Noodles'/>,
+  <GroceryListItem name='Mint Chip Ice Cream'/>,
+  <GroceryListItem name='Masks'/>
+];
 
 // render GroceryList onto div tag in index.html with id of app
-ReactDOM.render(<GroceryList />, document.getElementById("app"));
+ReactDOM.render(<GroceryList groceryItems={groceryItems}/>, document.getElementById("app"));
