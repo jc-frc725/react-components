@@ -1,11 +1,20 @@
 // TODO
 
 // note: ES6 syntax, withou {} implicitly return
+
+
 var GroceryList = () => (
+  <div>
+    <ListTitle />
     <ul>
       <Beer />
       <Noodles />
     </ul>
+  </div>
+);
+
+var ListTitle = () => (
+  <h2>Stuff to Buy</h2>
 );
 
 // make React components for items in GroceryList
