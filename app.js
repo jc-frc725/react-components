@@ -13,7 +13,8 @@ var GroceryList = (props) => {
   // var onListItemClick = (event) => {
   //   console.log('yea boi');
   // };
-
+   
+  // { }
   return (
     <div>
       <ListTitle />
@@ -36,7 +37,7 @@ var GroceryListItem = (grocery) => {
   // props needs to contain a dynamic 'name' to each GListItem
   // could be props.name = 'name of item', still within a li element
   var onListItemClick = (event) => {
-    console.log('yea boi');
+    console.log('wow!');
   };
   return (
     <li onClick={onListItemClick}>{grocery.name}</li>
