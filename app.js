@@ -18,7 +18,10 @@ var GroceryList = (props) => {
   return (
     <div>
       <ListTitle />
-      <ul>
+      <ul> 
+        {props.groceryitems.map(groceryitem =>
+          <GroceryListItem name={groceryitem} />
+          )}
         {props.groceryitems[0]}
         {props.groceryitems[1]}
         {props.groceryitems[2]}
@@ -33,17 +36,36 @@ var ListTitle = () => (
 );
 
 // make a reusable GroceryListItem component that dynamically renders given grocery item
-var GroceryListItem = (grocery) => {
-  // props needs to contain a dynamic 'name' to each GListItem
-  // could be props.name = 'name of item', still within a li element
-  var onListItemClick = (event) => {
+// var GroceryListItem = (grocery) => {
+//   // props needs to contain a dynamic 'name' to each GListItem
+//   // could be props.name = 'name of item', still within a li element
+//   var onListItemClick = (event) => {
+//     console.log('wow!');
+//   };
+//   return (
+//     <li onClick={onListItemClick}>{grocery.name}</li>
+//   );
+  
+// };
+
+// ES6 class style
+class GroceryListItem extends React.Component {
+  constructor(props) {
+    super(props) // pass all parent props to child
+  }
+
+  onListItemClick(event) {
     console.log('wow!');
   };
-  return (
-    <li onClick={onListItemClick}>{grocery.name}</li>
-  );
-  
-};
+  //EVERY React class Component MUST have 'render' method
+  render() {
+    return (
+      // props is no longer an argument to be passed
+      // now accessed with 'this.props'
+      <li onClick={this.onListItemClick}>{this.props.name}</li>
+    );
+  }
+}
 
 // make an array of GroceryListItems
 var groceryItems = [
