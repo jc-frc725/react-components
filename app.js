@@ -21,11 +21,7 @@ var GroceryList = (props) => {
       <ul> 
         {props.groceryitems.map(groceryitem =>
           <GroceryListItem name={groceryitem} />
-          )}
-        {props.groceryitems[0]}
-        {props.groceryitems[1]}
-        {props.groceryitems[2]}
-        {props.groceryitems[3]}
+        )}
       </ul>
     </div>
   );
@@ -48,21 +44,43 @@ var ListTitle = () => (
   
 // };
 
-// ES6 class style
+// ES6 class style - now can manipulate 'state'
 class GroceryListItem extends React.Component {
+  // constructor method
   constructor(props) {
-    super(props) // pass all parent props to child
+    // pass all parent props to child
+    super(props)
+    // 'state' is an object literal, must initialize in constructor
+    this.state = {hover: false};
   }
 
+  // upon clicking a list item, 'hover' is toggled to opposite of what it was,
+  // and render will run again to update
   onListItemClick(event) {
-    console.log('wow!');
+    this.setState({
+      hover: !this.state.hover
+    });
+    console.log('wow! you altered this component\'s state!');
   };
-  //EVERY React class Component MUST have 'render' method
+
+  // EVERY React class Component MUST have 'render' method
   render() {
+
+    // make a 'style' conditional on state to allow updating based on user interaction
+    var style = {
+      // what this line does: state.textDecoration is a property linked to function
+      // the function: ternary operator with 'this.state.hover' as conditional
+      // if true, return 'bold', false, 'none'
+      textDecoration: this.state.hover ? 'bold' : 'none'
+      // add more 'suchDecoration' properties for more interactions
+    };
+
     return (
       // props is no longer an argument to be passed
       // now accessed with 'this.props'
-      <li onClick={this.onListItemClick}>{this.props.name}</li>
+
+      //
+      <li style={style} onMouseOver={this.onListItemClick.bind(this)}>{this.props.name}</li>
     );
   }
 }
@@ -70,10 +88,10 @@ class GroceryListItem extends React.Component {
 // make an array of GroceryListItems
 var groceryItems = [
   // each GListItem is passed a prop with 'name'
-  <GroceryListItem name='Beer'/>,
-  <GroceryListItem name='Noodles'/>,
-  <GroceryListItem name='Mint Chip Ice Cream'/>,
-  <GroceryListItem name='Masks'/>
+  'Beer',
+  'Noodles',
+  'Mint Chip Ice Cream',
+  'Masks'
 ];
 
 // render GroceryList onto div tag in index.html with id of app
